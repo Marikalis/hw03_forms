@@ -23,6 +23,6 @@ def new_post(request):
         if form.is_valid():
             form.save()
             return redirect('index')
-        return render(request, 'posts/new.html', {'form': form})
+        return render(request, 'new_post.html', {'form': form})
     form = PostForm()
-    return render(request, 'posts/new.html', {'form': form})
+    return render(request, 'new_post.html', {'form': form})
