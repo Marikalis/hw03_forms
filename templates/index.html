@@ -1,7 +1,17 @@
 {% extends "base.html" %}
 {% block title %}Последние обновления на сайте{% endblock %}
-{% block header %}Последние обновления на сайте{% endblock %}
+
+{% block header %}
+
+{% include 'nav.html' %}
+
+{% endblock %}
+
 {% block content %}
+
+</br>
+<h1>Последние обновления на сайте</h1>
+</br>
 
 {% for post in posts %}
   <h3>
