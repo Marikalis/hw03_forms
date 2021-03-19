@@ -1,6 +1,8 @@
 from django.contrib.auth import get_user_model
 from django.db import models
 
+DATE_FORMAT = "%d/%m/%Y"
+
 User = get_user_model()
 
 
@@ -16,7 +18,7 @@ class Post(models.Model):
 
     def __str__(self):
         return (f"{self.text[:20]} | "
-                f"{self.pub_date.strftime('%m/%d/%Y')} | "
+                f"{self.pub_date(DATE_FORMAT)} | "
                 f"{self.author}")
 
     class Meta:
