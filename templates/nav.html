@@ -10,7 +10,7 @@
     <a class="p-2 text-dark"
       href="{% url 'logout' %}"
     >Выйти</a>
-    {% else %}
+  {% else %}
     <a class="p-2 text-dark" href="{% url 'login' %}">Войти</a> |
     <a class="p-2 text-dark" href="{% url 'signup' %}">Регистрация</a>
   {% endif %}
