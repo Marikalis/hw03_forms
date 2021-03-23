@@ -33,7 +33,7 @@ class Post(models.Model):
         return (f'{self.text[:20]} | '
                 f'{self.group} | '
                 f'{self.pub_date.strftime(DATE_FORMAT)} | '
-                f'{self.author.name.get_full_name}')
+                f'{self.author.get_full_name()}')
 
     class Meta:
         ordering = ('-pub_date',)
