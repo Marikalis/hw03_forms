@@ -1,5 +1,4 @@
 from django.test import TestCase
-from pytils.translit import slugify
 
 from posts.models import Group, Post, User
 
