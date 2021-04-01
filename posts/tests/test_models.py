@@ -1,10 +1,7 @@
-from django.contrib.auth import get_user_model
 from django.test import TestCase
 from pytils.translit import slugify
 
-from posts.models import Group, Post
-
-User = get_user_model()
+from posts.models import Group, Post, User
 
 
 class PostModelTest(TestCase):
@@ -74,11 +71,3 @@ class GroupModelTest(TestCase):
         group = GroupModelTest.group
         expected_object_name = group.title
         self.assertEquals(expected_object_name, str(group))
-
-    # Расширение встроенного метода save(): если поле slug не заполнено -
-    # транслитерировать в латиницу содержимое поля title и
-    # обрезать до ста знаков
-    def save(self, *args, **kwargs):
-        if not self.slug:
-            self.slug = slugify(self.title)[:100]
-        super().save(*args, **kwargs)
