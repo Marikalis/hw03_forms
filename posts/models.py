@@ -1,14 +1,13 @@
 from django.contrib.auth import get_user_model
 from django.db import models
 
-from .settings import DATE_FORMAT
-
 User = get_user_model()
 
 
 class Post(models.Model):
     text = models.TextField(
-        verbose_name='Текст'
+        verbose_name='Текст',
+        help_text='Введите текст поста',
     )
     pub_date = models.DateTimeField(
         auto_now_add=True,
@@ -25,15 +24,13 @@ class Post(models.Model):
         on_delete=models.SET_NULL,
         related_name='posts',
         verbose_name='Группа',
+        help_text='Введите описание группы',
         blank=True,
         null=True
     )
 
     def __str__(self):
-        return (f'{self.text[:20]} | '
-                f'{self.group} | '
-                f'{self.pub_date.strftime(DATE_FORMAT)} | '
-                f'{self.author.get_full_name()}')
+        return f'{self.text[:15]}'
 
     class Meta:
         ordering = ('-pub_date',)

@@ -1,7 +1,10 @@
+from django.contrib.auth import get_user_model
 from django.test import TestCase
 from pytils.translit import slugify
 
 from posts.models import Group, Post
+
+User = get_user_model()
 
 
 class PostModelTest(TestCase):
@@ -9,8 +12,8 @@ class PostModelTest(TestCase):
     def setUpClass(cls):
         super().setUpClass()
         cls.post = Post.objects.create(
-            text='Тестовый текст',
-            pub_date='Тестовая дата публикации',
+            text='a' * 20,
+            author=User.objects.create_user(username='testuser')
         )
 
     def test_verbose_name(self):
@@ -39,9 +42,9 @@ class PostModelTest(TestCase):
                 self.assertEqual(
                     post._meta.get_field(value).help_text, expected)
 
-    def test_object_name_is_text_field(self):
+    def test_post_str(self):
         post = PostModelTest.post
-        expected_object_name = post.text
+        expected_object_name = post.text[:15]
         self.assertEquals(expected_object_name, str(post))
 
 
@@ -56,7 +59,7 @@ class GroupModelTest(TestCase):
 
     def test_verbose_name(self):
         """verbose_name в полях совпадает с ожидаемым."""
-        group = GroupModelTest.post
+        group = GroupModelTest.group
         field_verboses = {
             'title': 'Название',
             'slug': 'Ссылка',
@@ -67,7 +70,7 @@ class GroupModelTest(TestCase):
                 self.assertEqual(
                     group._meta.get_field(value).verbose_name, expected)
 
-    def test_object_name_is_title_field(self):
+    def test_object_str(self):
         group = GroupModelTest.group
         expected_object_name = group.title
         self.assertEquals(expected_object_name, str(group))
