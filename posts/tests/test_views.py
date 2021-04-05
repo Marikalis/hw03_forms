@@ -1,5 +1,4 @@
 from django import forms
-from django.contrib.auth import get_user_model
 from django.test import Client, TestCase
 from django.urls import reverse
 
@@ -60,7 +59,9 @@ class PagesTests(TestCase):
 
     def test_group_show_correct_context(self):
         """Шаблон group_posts сформирован с правильным контекстом."""
-        response = self.authorized_client.get(reverse('group_posts', kwargs={'slug': 'test-slug'}))
+        response = self.authorized_client.get(
+            reverse('group_posts', kwargs={'slug': 'test-slug'})
+        )
         group = response.context['group']
         expected_group = PagesTests.group_with_post
         posts = response.context['posts']
@@ -97,6 +98,8 @@ class PagesTests(TestCase):
     def test_new_post_with_group_doesnt_shown_on_other_group(self):
         # Удостоверимся, что если при создании поста указать группу,
         # то этот пост не появляется в другой группе
-        response = self.authorized_client.get(reverse('group_posts', kwargs={'slug': 'test-slug-empty'}))
+        response = self.authorized_client.get(
+            reverse('group_posts', kwargs={'slug': 'test-slug-empty'})
+        )
         posts = response.context['posts']
         self.assertEqual(len(posts), 0)
