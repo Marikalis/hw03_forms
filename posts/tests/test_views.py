@@ -110,10 +110,10 @@ class PaginatorViewsTest(TestCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        for index in xrange(12):
+        for index in range(12):
             note = f"запись номер {index} "
             Post.objects.create(
-                text: note)
+                text=note)
 
     def setUp(self):
         # Создаем неавторизованный клиент
