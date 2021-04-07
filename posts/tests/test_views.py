@@ -53,7 +53,7 @@ class PagesTests(TestCase):
     def test_index_show_correct_context(self):
         """Шаблон index сформирован с правильным контекстом."""
         response = self.authorized_client.get(reverse('index'))
-        posts = response.context['posts']
+        posts = response.context['page']
         expected = Post.objects.all()
         self.assertEqual(list(posts), list(expected))
 
@@ -91,7 +91,7 @@ class PagesTests(TestCase):
         # Удостоверимся, что если при создании поста указать группу,
         # то этот пост появляется
         response = self.authorized_client.get(reverse('index'))
-        post_text = response.context['posts'][0].text
+        post_text = response.context['page'][0].text
         expected_text = PagesTests.post.text
         self.assertEqual(post_text, expected_text)
 
@@ -110,10 +110,13 @@ class PaginatorViewsTest(TestCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        for index in range(12):
+        user = User.objects.create_user(username='testuser')
+        for index in range(13):
             note = f"запись номер {index} "
             Post.objects.create(
-                text=note)
+                text=note,
+                author=user
+            )
 
     def setUp(self):
         # Создаем неавторизованный клиент
