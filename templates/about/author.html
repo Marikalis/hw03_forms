@@ -3,6 +3,7 @@
 {% block title %}Об авторе проекта{% endblock %}
 {% block content %}
 {% load user_filters %}
+{% load static %}
   <main role="main" class="container">
     <div class="row">
       <!-- Левый вспомогательный блок -->
@@ -16,8 +17,11 @@
                 </div> 
               </li>
               <li class="list-group-item">
+                <p>
+                  <img src="{% static 'images/author.jpg' %}" alt="Author's photo">
+                </p>
                 <div class="h6 text-muted">
-                  Полезный короткий текст
+                  Привет
                 </div>
               </li>
             </ul>                                               
@@ -34,6 +38,9 @@
               Проработав 2 года в IT компании прониклась этой темой, 
               а коллеги вдохновили на разработку.
             </p>
+            <a href="https://github.com/Marikalis">Мой GitHub</a>
+            </br>
+            <a href="https://www.facebook.com/marika.lisitskaya/">Мой Facebook</a>
           </div>                    
         </div>                
       </div>            
