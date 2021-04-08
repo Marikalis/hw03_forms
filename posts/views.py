@@ -24,7 +24,10 @@ def group_posts(request, slug):
 def new_post(request):
     form = PostForm(request.POST or None)
     if not form.is_valid():
-        return render(request, 'new_post.html', {'form': form})
+        return render(request, 'new_post.html', {
+            'form': form,
+            'edit': False
+        })
     post = form.save(commit=False)
     post.author = request.user
     post.save()
@@ -54,7 +57,7 @@ def post_view(request, username, post_id):
                    'posts_count': posts_count,
                    'post': post})
 
-
+@login_required
 def post_edit(request, username, post_id):
     post = get_object_or_404(Post, id=post_id)
     if post.author != request.user:
@@ -67,8 +70,12 @@ def post_edit(request, username, post_id):
         return render(
             request,
             'new_post.html',
-            {'form': form,
-             'post': post})
+            {
+                'form': form,
+                'post': post,
+                'edit': True
+             }     
+        )
     edited_post = form.save(commit=False)
     edited_post.author = request.user
     edited_post.save()
