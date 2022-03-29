@@ -9,11 +9,11 @@
 Клонировать репозиторий и перейти в него в командной строке:
 
 ```
-git clone https://github.com/Marikalis/community
+git clone https://github.com/Marikalis/hw03_forms
 ```
 
 ```
-cd community
+cd hw03_forms
 ```
 
 Cоздать и активировать виртуальное окружение:
